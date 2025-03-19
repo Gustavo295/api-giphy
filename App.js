@@ -6,12 +6,12 @@ import ScreenResult from "./src/telas/ScreenResult";
 
 const Stack = createStackNavigator()
 
-export default functon App(){
+export default function App(){
 	return(
 		<NavigationContainer>
 			<Stack.Navigator>
-				<Stack.Screen name="ScreenHome" component={ScreenHome} option={{headerShown:false}}/>
-				<Stack.Screen name="ScreenResult" component={ScreenResult} option={{headerShown:false}}/>
+				<Stack.Screen name="ScreenHome" component={ScreenHome} options={{headerShown:false}}/>
+				<Stack.Screen name="ScreenResult" component={ScreenResult} options={{headerShown:false}}/>
 			</Stack.Navigator>
 		</NavigationContainer>
 );

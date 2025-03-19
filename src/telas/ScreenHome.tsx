@@ -4,15 +4,15 @@ import { StyleSheet, Text, View, ImageBackground, TouchableOpacity } from 'react
 export default function ScreenHome({navigation}) {
   return (
     <ImageBackground source={require("../../assets/HomePage.png")} style={styles.container}>
-	<Text style{styles.textMain}>Pesquisar por...</Text>
-	<View style={{flexDirection:'row'}}>
-	<TouchableOpacity style={styles.btn} onPress={()=>navigation.navigate("ScreenResult",{choose:'gifs'})}>
-		<Text style={styles.textBtn}>GIFS</Text>
-	</TouchableOpacity>
-	<TouchableOpacity style={styles.btn} onPress={()=>navigation.navigate("ScreenResult",{choose:'stickers'})}>
-		<Text style={styles.textBtn}>STICKERS</Text>
-	</TouchableOpacity>
-	</View>
+      <Text style={styles.textMain}>Pesquisar por...</Text>
+      <View style={{flexDirection:'row'}}>
+        <TouchableOpacity style={styles.btn} onPress={()=>navigation.navigate("ScreenResult",{choose:'gifs'})}>
+          <Text style={styles.textBtn}>GIFS</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.btn} onPress={()=>navigation.navigate("ScreenResult",{choose:'stickers'})}>
+          <Text style={styles.textBtn}>STICKERS</Text>
+        </TouchableOpacity>
+	    </View>
     </ImageBackground>
   );
 }
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 5,
     margin: 5,
-    alignItems: 'center,
+    alignItems: 'center',
     justifyContent: 'center',
   },  
   textBtn:{
