@@ -1,10 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { ImageBackground, StyleSheet, Text, TextInput, View, SafeAreaView, FlatList, Image} from 'react-native';
-import {Ionicons} from 'react-native-vector-icons';
+import { ImageBackground, StyleSheet, Text, TextInput, View, SafeAreaView, FlatList, Dimensions} from 'react-native';
 import axios from 'axios';
 import API_KEY from '../API_KEY';
+import {Image} from 'expo-image';
+import Header from '../Components/Header';
  
+const{width, height}=Dimensions.get("window")
+const IMAGE_WIDTH = width
+
 export default function ScreenResult({route, navigation}) {
   const choose = route.params.choose;
   const link = `http://api.giphy.com/v1/${choose}/search`;
@@ -12,12 +16,12 @@ export default function ScreenResult({route, navigation}) {
   const [data, setData] = useState([]);
 
   const requestData = async (searchText) => {
+    Keyboard.dismiss()
     try{
       const result = await axios.get(link,{
         params:{
           api_key: API_KEY,
-          q:searchText,
-          lang:"pt"
+          q:searchText
         }
       })
       setData(result.data.data)
@@ -30,27 +34,23 @@ export default function ScreenResult({route, navigation}) {
   }
   return (
     <ImageBackground source={require("../../assets/BG.png")} style={styles.container}>
-      <SafeAreaView style={{flexDirection:'row', justifyContent:'space-between'}}>
-        <Ionicons name="arrow-back" size={40} color="white" onPress={()=>navigation.goBack()}/>
-        <TextInput
-          style={styles.input}
-          placeholder='Digite sua pesquisa'
-          autoCapitalize='none'
-          autoCorrect={false}
-          value={searchText}
-          onChangeText={(value)=>setSearchText(value)}
-        />
-        <Ionicons name="search" size={40} color="white" onPress={()=>requestData(searchText)}/>
-      </SafeAreaView>
-      
+      <Header
+	navigation={navigation}
+	searchText={searchText}	
+	setSearchText={setSearchText}
+	requestData={requestData}
+      />
       <FlatList
         data={data}  
+	numColumns={2}
         renderItem={({item})=>{
           return(
-            <Image
-              style={styles.image}
-              source={{uri:item.image.preview_gif.url}}
-            />
+	    <TouchableOpacity onPress={()=>nagivation.navigate("TelaDetalhes")}>	    
+		<Image
+              	 style={styles.image}
+             	 source={{uri:item.images.preview_gif.url}}
+                />
+	    </TouchableOpacity>
           )
         }}
       />
@@ -60,7 +60,7 @@ export default function ScreenResult({route, navigation}) {
 }
  
 const styles = StyleSheet.create({
-  container: {
+  container:{
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   image:{
-    width:250,
-    height: 250,
-  }
+    width:IMAGE_WIDTH/2,
+    height: IMAGE_WIDTH/2,
+  },
 });
